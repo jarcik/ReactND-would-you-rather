@@ -6,7 +6,7 @@ export default function questions(state = {}, action) {
         case ADD_QUESTION:
             return {
                 ...state,
-                [action.qustions.id]: action.question
+                [action.question.id]: action.question
             }
         //saving the answer of the questoin
         case SAVE_ANSWER_QUESTION:

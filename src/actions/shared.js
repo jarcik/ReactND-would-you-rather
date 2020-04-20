@@ -1,6 +1,7 @@
-import { getInitialData } from '../utils/api';
+import { getInitialData, saveQuestion, saveQuestionAnswer } from '../utils/api';
 import { recieveUsers, saveAnswerQuestionUser, addQuestionUser } from '../actions/users';
 import { recieveQuestions, saveAnswerQuestion, addQuestion } from '../actions/questions';
+import { setAuthedUser } from '../actions/authedUser';
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 //getting all the initial data - all questions and users
@@ -12,6 +13,7 @@ export function handleInitialData() {
             .then(({ questions, users }) => {
                 dispatch(recieveQuestions(questions));
                 dispatch(recieveUsers(users));
+                dispatch(setAuthedUser('sarahedo'))
                 dispatch(hideLoading())
             })
     }
@@ -22,9 +24,9 @@ export function handleInitialData() {
 export function handleAddQuestion(optionOne, optionTwo) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
-        return _saveQuestion({
-            optionOne,
-            optionTwo,
+        return saveQuestion({
+            optionOneText: optionOne,
+            optionTwoText: optionTwo,
             author: authedUser
         }).then((question) => {
             dispatch(addQuestion(question));
@@ -36,18 +38,13 @@ export function handleAddQuestion(optionOne, optionTwo) {
 
 //handle the answering the question
 //here because of interacting with both questions and users actions
-export function handleAnswerQuestion(qid, option) {
+export function handleAnswerQuestion(qid, answer) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
-        const answer = {
-            authedUser,
-            qid,
-            option
-        };
-        _saveQuestionAnswer(answer)
+        saveQuestionAnswer({authedUser, qid, answer})
             .then(() => {
-                dispatch(saveAnswerQuestion(authedUser, qid, option));
-                dispatch(saveAnswerQuestionUser(authedUser, qid, option))
+                dispatch(saveAnswerQuestion(authedUser, qid, answer));
+                dispatch(saveAnswerQuestionUser(authedUser, qid, answer))
             })
     }
 }

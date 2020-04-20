@@ -4,7 +4,7 @@ export default function authedUser(state = null, action) {
     switch (action.type) {
         //log in user
         case SET_AUTHED_USER:
-            return action.id;
+            return action.user;
         //log out user
         case NOT_SET_AUTHED_USER:
             return null;

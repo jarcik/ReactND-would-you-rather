@@ -13,17 +13,13 @@ class DashBoard extends Component {
 
   render() {
     return (
-      <div>
-        <div className="tab">
-          <button
-            className={"tablinks" + (this.state.tab === "unanswered" ? 'active' : null)}
-            onClick={() => this.toggle('unanswered')}>Unanswered</button>
-          <button
-            className={"tablinks" + (this.state.tab === "answered" ? 'active' : null)}
-            onClick={() => this.toggle('answered')}>Answered</button>
-        </div>
+      <div id="whole-container">
+        <ul className="nav nav-tabs justify-content-center">
+            <li className="nav-item"><a className={"nav-link" + (this.state.tab === "unanswered" ? ' active' : '')} onClick={() => this.toggle('unanswered')}>Unanswered</a></li>
+            <li className="nav-item"><a className={"nav-link" + (this.state.tab === "answered" ? ' active' : '')} onClick={() => this.toggle('answered')}>Answered</a></li>
+        </ul>
 
-        <div id={this.state.tab} className="tabcontent">
+        <div id={this.state.tab} className="tab-content">
           {this.state.tab === 'answered' && this.props.answeredQuestions.map(question =>
             <Question key={question} question={question} />
           )}

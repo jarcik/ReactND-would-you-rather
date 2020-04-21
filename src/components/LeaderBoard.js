@@ -6,14 +6,16 @@ class LeaderBoard extends Component {
   render() {
       const users = this.props.sortedUsers;
     return (
-      <div>
+      <div id="whole-container">
         {users.map((user) => 
-            <div key={user.id}>                
-                <img src={user.avatarURL} alt={`Avatar of ${user.name}`}/>
-                <span>{user.name}</span>
-                <span>Answered questions: {Object.keys(user.answers).length}</span>
-                <span>Questions created: {user.questions.length}</span>
-                <span>Score: {Object.keys(user.answers).length + user.questions.length}</span>
+            <div key={user.id} className="card text-white bg-info mb-3 leaderboard-card">                
+                <div className="card-body">
+                  <img src={user.avatarURL} alt={`Avatar of ${user.name}`} width="150" />
+                  <span className="name">{user.name}</span>
+                  <span>Answered questions: {Object.keys(user.answers).length}</span>
+                  <span>Questions created: {user.questions.length}</span>
+                  <span className="score">{Object.keys(user.answers).length + user.questions.length}</span>
+                </div>
             </div>
         )}
       </div>

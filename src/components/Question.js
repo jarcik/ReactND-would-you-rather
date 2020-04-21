@@ -6,7 +6,7 @@ class Question extends Component {
 
   viewPoll = (e) => {
     e.preventDefault();
-    this.props.history.push('/question/'+ this.props.quest.id);
+    this.props.history.push('/questions/'+ this.props.quest.id);
 
   }
 
@@ -15,17 +15,15 @@ class Question extends Component {
     const { quest, author } = this.props;
     const optionOne = quest.optionOne.text.split(' ');
     return (
-      <div>
-        <div>
+      <div className="card text-white bg-info mb-3">
+        <div className="card-header">
           {author.name} asks:
         </div>
-        <div>
-          <div>
-            <span>Would you rather</span>
-            <img src={author.avatarURL} alt={`Avatar of ${author.name}`}/>
-            <span> {optionOne[0] + ' ' + (optionOne[1] ? optionOne[1] : '')} ...</span>
-            <button type='button' onClick={this.viewPoll}>View Poll</button>
-          </div>
+        <div className="card-body">
+          <img src={author.avatarURL} alt={`Avatar of ${author.name}`} width="150"/>
+          <span className="card-text">Would you rather</span>
+          <span className="card-text"> {optionOne[0] + ' ' + (optionOne[1] ? optionOne[1] : '')} ...</span>
+          <button type='button' className="btn btn-warning" onClick={this.viewPoll}>View Poll</button>
         </div>
       </div>
     )

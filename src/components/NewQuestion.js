@@ -47,42 +47,43 @@ class NewQuestion extends Component {
         const leftTwo = 280 - optionTwo.length;
 
         return (
-            <div>
-                <h3>Would you rather...?</h3>
+            <div id="whole-container" className="bg-info card new-question">
+            <div className="card-header text-white">
+                Would you rather...?
+            </div>
+            <div className="card-body">
                 <form onSubmit={this.handleSubmit}>
-                    <div>
+                    <div className="form-group">
+                        <label htmlFor="optionOne">Option one</label>
                         <textarea
+                            className="form-control"
                             placeholder="Option one"
                             value={optionOne}
                             onChange={this.handleOptionOne}
                             maxLength={280}
+                            id="optionOne"
                         />
-                        {leftOne <= 100 && (
-                            <div>
-                                {leftOne}
-                            </div>
-                        )}
                     </div>
 
-                    <div>
+                    <div className="form-group">
+                        <label htmlFor="optionTwo">Option one</label>
                         <textarea
+                            className="form-control"
                             placeholder="Option two"
                             value={optionTwo}
                             onChange={this.handleOptionTwo}
                             maxLength={280}
+                            id="optionTwo"
                         />
-                        {leftTwo <= 100 && (
-                            <div>
-                                {leftTwo}
-                            </div>
-                        )}
                     </div>
                     <button
                         type='submit'
-                        disabled={optionOne === ''}>
+                        disabled={optionOne === ''}
+                        className="btn btn-warning">
                         Submit
               </button>
                 </form>
+                </div>
             </div>
         )
     }

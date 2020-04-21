@@ -29,7 +29,7 @@ class App extends Component {
           <div className='container'>
             <Nav />
             <Route path='/' exact component={DashBoard} />
-            <Route path='/question/:id' component={QuestionDetail} />
+            <Route path='/questions/:id' component={QuestionDetail} />
             <Route path='/add' component={NewQuestion} />
             <Route path='/leaderboard' component={LeaderBoard} />
           </div>

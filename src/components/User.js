@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 class User extends Component {
   render() {
     return (
-      <div>
-        <img src={this.props.user.avatarURL} alt={`Avatar of ${this.props.user.name}`}/>
-        <span>{this.props.user.name}</span>
+      <div className="flex">
+        <span className="user-name">{this.props.user.name}</span>
+        <img src={this.props.user.avatarURL} alt={`Avatar of ${this.props.user.name}`} width="50" />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 class Question extends Component {
 
+  //click on the view poll button - locate to the questio detail
   viewPoll = (e) => {
     e.preventDefault();
     this.props.history.push('/questions/'+ this.props.quest.id);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class NotFound extends Component {
+
+  //click on the home button
   home = (e) => {
     e.preventDefault();
     this.props.history.push('/');

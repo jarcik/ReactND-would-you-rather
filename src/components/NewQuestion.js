@@ -10,18 +10,19 @@ class NewQuestion extends Component {
         toHome: false
     }
 
+    //change of the texatrea for option one
     handleOptionOne = (e) => {
-        const optionOne = e.target.value
-
-        this.setState({optionOne})
+        const optionOne = e.target.value;
+        this.setState({optionOne});
     }
 
+    //change of the texatrea for option two
     handleOptionTwo = (e) => {
-        const optionTwo = e.target.value
-
-        this.setState({optionTwo})
+        const optionTwo = e.target.value;
+        this.setState({optionTwo});
     }
 
+    //submit new question
     handleSubmit = (e) => {
         e.preventDefault()
 
@@ -40,6 +41,7 @@ class NewQuestion extends Component {
     render() {
         const { optionOne, optionTwo, toHome } = this.state
 
+        //submitted question - redurect to home page
         if(toHome === true) {
             return <Redirect to='/' />
         }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class LeaderBoard extends Component {
 
   render() {
-      const users = this.props.sortedUsers;
+    const users = this.props.sortedUsers;
       
     return (
       <div id="whole-container">
@@ -25,7 +25,8 @@ class LeaderBoard extends Component {
 }
 
 function mapStateToProps({ authedUser, users }) {
-    const sortedUsers = Object.values(users).sort((a,b) => (Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + a.questions.length));
+  //sorted users by their score to leaderboard view
+  const sortedUsers = Object.values(users).sort((a,b) => (Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + a.questions.length));
   return {
     authedUser,
     sortedUsers

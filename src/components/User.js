@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 class User extends Component {
 
+  //log out the user
   logOut = (e) => {
     e.preventDefault();
     this.props.logOut();

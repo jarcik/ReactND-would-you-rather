@@ -9,38 +9,37 @@ class QuestionDetail extends Component {
         answer: ''
     }
 
+    //change of the selected answer
     radioChange = (e) => {
         this.setState({
             answer: e.target.value
         });
     }
 
+    //submit the answer
     submit = (e) => {
         e.preventDefault();
-        console.log(this.state.answer);
         this.props.answerQuestion(this.props.quest.id, this.state.answer);
     }
 
+    //format the percent of votes
     getPercent = (votes, totalVotes) => {
         return ((votes / totalVotes) * 100).toFixed(1);
     }
 
   render() {      
+    //no quest id found - redirect to no found page
     if(!this.props.quest) {
       return <Redirect to='/not-found' />
     }
 
     const { quest, userAnswer, author } = this.props;
+    //total number of votes
     const totalVotes = quest.optionOne.votes.length + quest.optionTwo.votes.length;
+    //get percents of each of the votes
     const optionOneVotes = userAnswer === null ? 0 : this.getPercent(quest.optionOne.votes.length, totalVotes);
     const optionTwoVotes = userAnswer === null ? 0 : this.getPercent(quest.optionTwo.votes.length, totalVotes);
 
-    console.log(this.props);
-
-    if (!quest) {
-      return <Redirect to='/not-found' />
-    }
-     
     return (
         <div className="card text-white bg-info mb-3" id="whole-container">
           <div className="card-header">

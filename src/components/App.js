@@ -14,6 +14,7 @@ import PrivateRoute from './PrivateRoute';
 
 class App extends Component {
   componentDidMount() {
+    //get data for users and questions from backend
     this.props.dispatch(handleInitialData())
   }
   render() {

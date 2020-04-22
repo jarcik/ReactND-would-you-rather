@@ -7,6 +7,7 @@ class DashBoard extends Component {
     tab: 'unanswered'
   };
 
+  //toggle the tab for answered and unaswered questions
   toggle = (tab) => {
     this.setState({ tab : tab });
   }
@@ -34,15 +35,15 @@ class DashBoard extends Component {
 
 function mapStateToProps({ authedUser, questions, users }) {
   
+  //sorted answered questions
   const answeredQuestions = Object.keys(users[authedUser].answers)
   .sort((a,b) => questions[b].timestamp - questions[a].timestamp);
 
+  //sorted unaswered questions
   const unansweredQuestions = Object.keys(questions)
   .filter((key) => !answeredQuestions.includes(key))
   .sort((a,b) => questions[b].timestamp - questions[a].timestamp);
-
-  console.log(answeredQuestions);
-  console.log(unansweredQuestions);
+  
   return {
     authedUser,
     answeredQuestions,

@@ -8,11 +8,12 @@ class Login extends Component {
     userId: ''
   }
 
+  //handle the change state of the select
   changeUser = (e) => {
-    console.log(e.target.value);
     this.setState({userId: e.target.value});
   }
 
+  //subbmit the log in form to login user
   submit = (e) => {
     e.preventDefault();
     if (this.state.userId !== '') {
@@ -23,8 +24,10 @@ class Login extends Component {
   }
 
   render() {
+    //location to where redirect if user logged in on the different path then home page
     const { from } = this.props.location.state || { from: { pathname: '/' } };
 
+    //redirect to where user came from
     if(this.props.authedUser !== null) {
       return <Redirect to={from}/>;
     }
@@ -57,7 +60,6 @@ class Login extends Component {
 }
 
 function mapStateToProps ({ users, authedUser }) {
-  console.log(users);
   return {
     users,
     authedUser

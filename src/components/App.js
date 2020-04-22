@@ -35,6 +35,7 @@ class App extends Component {
                 <PrivateRoute path='/leaderboard' exact component={LeaderBoard}
                     authedUser={this.props.authedUser}/>
                 <Route path='/not-found' component={NotFound} />
+                <Route path='*' component={NotFound} />
             </Switch>
           </div>
         </Fragment>

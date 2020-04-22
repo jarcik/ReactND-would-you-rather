@@ -5,6 +5,7 @@ class LeaderBoard extends Component {
 
   render() {
       const users = this.props.sortedUsers;
+      
     return (
       <div id="whole-container">
         {users.map((user) => 

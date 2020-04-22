@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAnswerQuestion } from '../actions/shared';
+import { Redirect } from 'react-router-dom';
 
 class QuestionDetail extends Component {
 
@@ -25,6 +26,10 @@ class QuestionDetail extends Component {
     }
 
   render() {      
+    if(!this.props.quest) {
+      return <Redirect to='/not-found' />
+    }
+
     const { quest, userAnswer, author } = this.props;
     const totalVotes = quest.optionOne.votes.length + quest.optionTwo.votes.length;
     const optionOneVotes = userAnswer === null ? 0 : this.getPercent(quest.optionOne.votes.length, totalVotes);
@@ -32,8 +37,8 @@ class QuestionDetail extends Component {
 
     console.log(this.props);
 
-    if (quest === null) {
-        return <p>This question do not exist</p>
+    if (!quest) {
+      return <Redirect to='/not-found' />
     }
      
     return (
@@ -46,23 +51,23 @@ class QuestionDetail extends Component {
               <span className="card-text">Would you rather</span>
               <form>
                   <div>
-                      <input type="radio" id="optionOne" name="option" value="optionOne" onChange={this.radioChange} disabled={userAnswer !== null ? "disabled" : ""} checked={userAnswer === "optionOne"} />
-                      <label htmlFor="optionOne">{quest.optionOne.text} {userAnswer !== null ? "(" + quest.optionOne.votes.length + " votes)" : ""}</label>
+                      <input type="radio" id="optionOne" name="option" value="optionOne" onChange={this.radioChange} disabled={userAnswer ? "disabled" : ""} checked={userAnswer === "optionOne" || this.state.answer === "optionOne"} />
+                      <label htmlFor="optionOne">{quest.optionOne.text} {userAnswer ? "(" + quest.optionOne.votes.length + " votes)" : ""}</label>
                   </div>
                   <div>
-                      <input type="radio" id="optionTwo" name="option" value="optionTwo" onChange={this.radioChange} disabled={userAnswer !== null ? "disabled" : ""} checked={userAnswer === "optionTwo"} />
-                      <label htmlFor="optionTwo">{quest.optionTwo.text} {userAnswer !== null ? "(" + quest.optionTwo.votes.length + " votes)" : ""}</label>
+                      <input type="radio" id="optionTwo" name="option" value="optionTwo" onChange={this.radioChange} disabled={userAnswer ? "disabled" : ""} checked={userAnswer === "optionTwo" || this.state.answer === "optionTwo"} />
+                      <label htmlFor="optionTwo">{quest.optionTwo.text} {userAnswer ? "(" + quest.optionTwo.votes.length + " votes)" : ""}</label>
                   </div>
-                  {userAnswer === null 
-                    && <button type='submit' name='submit' className="btn btn-warning" onClick={this.submit}>Submit</button>}
-                  {userAnswer !== null &&
+                  {userAnswer
+                    ? '' : <button type='submit' name='submit' className="btn btn-warning" onClick={this.submit}>Submit</button>}
+                  {userAnswer ?
                       <div>
                         <div className="progress">
                           <div className="progress-bar bg-warning" role="progressbar" style={{width: optionOneVotes+ "%"}} aria-valuenow={optionOneVotes} aria-valuemin="0" aria-valuemax="100">{optionOneVotes}%</div>
                           <div className="progress-bar bg-danger" role="progressbar" style={{width: optionTwoVotes+ "%"}} aria-valuenow={optionTwoVotes} aria-valuemin="0" aria-valuemax="100">{optionTwoVotes}%</div>
                         </div>
                         <span>Total votes: {totalVotes}</span>
-                      </div>}
+                      </div> : ''}
               </form>
             </div>
           </div>
@@ -73,7 +78,8 @@ class QuestionDetail extends Component {
 function mapStateToProps({ authedUser, questions, users }, props) {
   const { id } = props.match.params
   const quest = questions[id];
-  const userAnswer = (id in users[authedUser].answers) ? users[authedUser].answers[id] : null;
+  if(!quest) return {};
+  const userAnswer = users[authedUser].answers[id];
   const author = users[quest.author];
   return {
     authedUser,

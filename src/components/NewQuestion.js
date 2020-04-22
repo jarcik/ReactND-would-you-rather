@@ -43,8 +43,6 @@ class NewQuestion extends Component {
         if(toHome === true) {
             return <Redirect to='/' />
         }
-        const leftOne = 280 - optionOne.length;
-        const leftTwo = 280 - optionTwo.length;
 
         return (
             <div id="whole-container" className="bg-info card new-question">
@@ -89,4 +87,10 @@ class NewQuestion extends Component {
     }
 }
 
-export default connect()(NewQuestion)
+function mapStateToProps({ authedUser }) {
+    return {
+      authedUser
+    }
+  }
+  
+export default connect(mapStateToProps)(NewQuestion)
